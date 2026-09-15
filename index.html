@@ -2,61 +2,183 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Private Profile</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            background-color: #111;
+            /* Создаем имитацию размытого интимного фото на фоне */
+            background: radial-gradient(circle at center, #3a1c24 0%, #0a0a0a 100%);
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
             text-align: center;
+            overflow: hidden;
         }
-        .container {
-            padding: 30px;
-            max-width: 90%;
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+
+        /* Эффект матового стекла для карточки */
+        .modal {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 25px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            position: relative;
         }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
+
+        /* Блок с фейковой аватаркой и уведомлением */
+        .avatar-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px auto;
         }
-        p {
-            font-size: 16px;
-            color: #b3b3b3;
-            margin-bottom: 30px;
-            line-height: 1.5;
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff2a5f, #ff7e67);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 0 20px rgba(255, 42, 95, 0.4);
         }
-        .btn {
+
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
             background-color: #ff2a5f;
             color: white;
-            padding: 16px 20px;
-            text-decoration: none;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
-            border-radius: 8px;
-            display: inline-block;
-            width: 100%;
-            box-sizing: border-box;
-            transition: background-color 0.2s;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #222;
+            animation: pulse-badge 2s infinite;
         }
-        .btn:active {
-            background-color: #d41f4a;
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #cccccc;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.1s, filter 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff2a5f, #ff4b72);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 42, 95, 0.4);
+            animation: pulse-btn 2.5s infinite;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.96);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #888888;
+            border: 1px solid #444;
+        }
+
+        .btn-secondary:active {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .secure-note {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Анимации */
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 42, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
+        }
+
+        @keyframes pulse-badge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔞 Age Verification</h1>
-        <p>This website contains age-restricted content. You must be at least 18 years old to enter.</p>
-        <a href="https://stroki.top/click?o=2&a=1551&sub_id2=T1+" class="btn">I am 18 or older - ENTER</a>
+
+    <div class="modal">
+        <div class="avatar-container">
+            <div class="avatar">🤫</div>
+            <div class="badge">1</div>
+        </div>
+        
+        <h1>Private Content</h1>
+        <p>This profile contains explicit 18+ content.<br>Please verify your age to enter.</p>
+        
+        <div class="btn-container">
+            <!-- ТВОЯ ССЫЛКА ЗДЕСЬ -->
+            <a href="https://stroki.top/click?o=2&a=1551&sub_id2=T1+" class="btn btn-primary">Yes, I am 18+ 💦</a>
+            
+            <a href="https://google.com" class="btn btn-secondary">No, I'm under 18</a>
+        </div>
+
+        <div class="secure-note">
+            🔒 100% Secure & Free Registration
+        </div>
     </div>
+
 </body>
 </html>
